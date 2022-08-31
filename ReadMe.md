@@ -1,7 +1,7 @@
 #### `spring machine demo `
 demo基于 spring-statemachine 3.2.0
 
-#### module
+#### `module 简介`
 - `hello-world`： 最简单demo
 ```
 1. @EnableStateMachine + 实现 EnumStateMachineConfigurerAdapter 或 StateMachineConfigurerAdapter
