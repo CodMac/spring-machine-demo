@@ -17,4 +17,25 @@
 ```
 
 
-- 
+- `persist-in-memory-demo`: 使用本地内存方式（HashMap）持久化状态机
+```
+1. 新建InMemoryStateMachinePersist类， 实现 StateMachinePersist
+重写write(...)及read(...)方法
+2. 定义一个Bean： StateMachinePersister
+返回新建InMemoryStateMachinePersist类的实例
+3. 通过StateMachinePersister实例， 执行 persist 或 restore 
+持久化 或 重置状态机
+```
+
+- `persist-redis-demo`: 使用redis方式持久化状态机
+```aidl
+1. 引入`spring-boot-starter-data-redis`
+自动配置redis
+2. 定义一个Bean： StateMachinePersister
+返回RepositoryStateMachinePersist实例
+3. 通过StateMachinePersister实例， 执行 persist 或 restore 
+持久化 或 重置状态机
+
+可以看出 `persist-redis-demo` 和 `persist-in-memory-demo` 的区别
+仅仅为 `StateMachinePersister` Bean的具体实现替换
+```

@@ -12,6 +12,7 @@
         <module>hello-world</module>
         <module>simple-order-demo</module>
         <module>persist-in-memory-demo</module>
+        <module>persist-redis-demo</module>
     </modules>
 
     <parent>
