@@ -28,7 +28,7 @@
 ```
 
 - `persist-redis-demo`: 使用redis方式持久化状态机
-```aidl
+```
 1. 引入`spring-boot-starter-data-redis`
 自动配置redis
 2. 定义一个Bean： StateMachinePersister
