@@ -1,7 +1,7 @@
-package org.example.service;
+package org.example.in_memory.service;
 
-import org.example.stateMachine.schema.Events;
-import org.example.stateMachine.schema.States;
+import org.example.in_memory.stateMachine.schema.Events;
+import org.example.in_memory.stateMachine.schema.States;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;

@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.service.StateMachineService;
+import org.example.in_memory.service.StateMachineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;

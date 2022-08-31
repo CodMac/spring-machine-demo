@@ -1,7 +1,7 @@
-package org.example.stateMachine;
+package org.example.in_memory.stateMachine;
 
-import org.example.stateMachine.schema.Events;
-import org.example.stateMachine.schema.States;
+import org.example.in_memory.stateMachine.schema.Events;
+import org.example.in_memory.stateMachine.schema.States;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.config.EnableStateMachine;
