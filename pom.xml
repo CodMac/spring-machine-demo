@@ -13,6 +13,7 @@
         <module>simple-order-demo</module>
         <module>persist-in-memory-demo</module>
         <module>persist-redis-demo</module>
+        <module>state-monitor-demo</module>
     </modules>
 
     <parent>

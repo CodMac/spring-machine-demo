@@ -1,4 +1,5 @@
 #### `spring machine demo `
+demo基于 spring-statemachine 3.2.0
 
 #### module
 - `hello-world`： 最简单demo
@@ -38,4 +39,12 @@
 
 可以看出 `persist-redis-demo` 和 `persist-in-memory-demo` 的区别
 仅仅为 `StateMachinePersister` Bean的具体实现替换
+```
+
+- `state-monitor-demo`: 演示了 monitor 和 listener 的实现和生命周期
+```
+1. 演示了 `state状态` 的 before/after action
+2. 演示了 `transitions转换规则` 的 action
+3. 演示了 `monitor` 的实现
+4. 演示了 `listener` 的实现(2种方式)
 ```
