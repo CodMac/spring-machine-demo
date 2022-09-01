@@ -30,3 +30,9 @@ demo基于 spring-statemachine 3.2.0
     3. 演示了 `monitor` 的实现
     4. 演示了 `listener` 的实现(2种方式)
     ```
+  
+- `simple-order-demo`: 简单的订单状态系统
+  ```
+  1. 定义了订单的状态生命周期
+  2. 通过 restful接口进行订单 `创建`， `支付`，`发货`， `收货` 控制
+  ```
