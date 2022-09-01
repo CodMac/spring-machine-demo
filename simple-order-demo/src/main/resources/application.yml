@@ -1,0 +1,7 @@
+spring:
+  profiles:
+    active: redis
+
+jasypt:
+  encryptor:
+    password: ${JASYPT-PWD}
