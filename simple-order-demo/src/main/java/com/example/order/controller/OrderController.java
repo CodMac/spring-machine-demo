@@ -13,29 +13,29 @@ public class OrderController {
 
     @PostMapping("/{oId}")
     public String createOrder(@PathVariable("oId") String oId) throws Exception {
-        orderService.createOrder(oId);
+        String success = orderService.createOrder(oId) ? "成功" : "失败";
 
-        return "订单创建， 订单Id: " + oId;
+        return "订单创建" + success + "， 订单Id: " + oId;
     }
 
-    @PutMapping("/{oId}")
+    @PutMapping("/{oId}/pay")
     public String payOrder(@PathVariable("oId") String oId) throws Exception {
-        orderService.pay(oId);
+        String success = orderService.pay(oId) ? "成功" : "失败";
 
-        return "订单支付， 订单Id: " + oId;
+        return "订单支付" + success + "， 订单Id: " + oId;
     }
 
-    @PutMapping("/{oId}")
+    @PutMapping("/{oId}/delivery")
     public String deliveryOrder(@PathVariable("oId") String oId) throws Exception {
-        orderService.delivery(oId);
+        String success = orderService.delivery(oId) ? "成功" : "失败";
 
-        return "订单发货， 订单Id: " + oId;
+        return "订单发货" + success + "， 订单Id: " + oId;
     }
 
-    @PutMapping("/{oId}")
+    @PutMapping("/{oId}/received")
     public String receivedOrder(@PathVariable("oId") String oId) throws Exception {
-        orderService.received(oId);
+        String success = orderService.received(oId) ? "成功" : "失败";
 
-        return "订单收货， 订单Id: " + oId;
+        return "订单收货" + success + "， 订单Id: " + oId;
     }
 }

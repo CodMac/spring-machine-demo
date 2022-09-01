@@ -2,7 +2,7 @@ package com.example.order.service;
 
 import com.example.order.config.statemachine.schema.OrderEvent;
 import com.example.order.config.statemachine.schema.OrderStatus;
-import com.example.order.constant.MessageHeeaderConstants;
+import com.example.order.constant.MessageHeaderConstants;
 import com.example.order.entity.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.Message;
@@ -22,46 +22,71 @@ public class OrderService {
     private StateMachine<OrderStatus, OrderEvent> stateMachine;
 
 
-    public void createOrder(String oId) throws Exception {
+    public boolean createOrder(String oId) throws Exception {
         stateMachine.startReactively().block();
+        stateMachinePersister.restore(stateMachine, MessageHeaderConstants.STATE_MACHINE_CACHE_KEY_PREFIX + oId);
+
+        String currentState = stateMachine.getState().getId().name();
+        if(!currentState.equals(OrderStatus.INIT.name())){
+            return false;
+        }
 
         Order order = new Order(oId);
-        Mono<Message<OrderEvent>> message = Mono.just(MessageBuilder.withPayload(OrderEvent.CREATE).setHeader(MessageHeeaderConstants.ORDER_KEY_OF_HEADER, order).build());
+        Mono<Message<OrderEvent>> message = Mono.just(MessageBuilder.withPayload(OrderEvent.CREATE).setHeader(MessageHeaderConstants.ORDER_KEY_OF_HEADER, order).build());
         stateMachine.sendEvent(message).subscribe();
 
-        stateMachinePersister.persist(stateMachine, oId);
+        stateMachinePersister.persist(stateMachine, MessageHeaderConstants.STATE_MACHINE_CACHE_KEY_PREFIX + oId);
+        return true;
     }
 
-    public void pay(String oId) throws Exception {
+    public boolean pay(String oId) throws Exception {
         stateMachine.startReactively().block();
-        stateMachinePersister.restore(stateMachine, oId);
+        stateMachinePersister.restore(stateMachine, MessageHeaderConstants.STATE_MACHINE_CACHE_KEY_PREFIX + oId);
+
+        String currentState = stateMachine.getState().getId().name();
+        if(!currentState.equals(OrderStatus.WAIT_PAYMENT.name())){
+            return false;
+        }
 
         Order order = new Order(oId);
-        Mono<Message<OrderEvent>> message = Mono.just(MessageBuilder.withPayload(OrderEvent.PAYED).setHeader(MessageHeeaderConstants.ORDER_KEY_OF_HEADER, order).build());
+        Mono<Message<OrderEvent>> message = Mono.just(MessageBuilder.withPayload(OrderEvent.PAYED).setHeader(MessageHeaderConstants.ORDER_KEY_OF_HEADER, order).build());
         stateMachine.sendEvent(message).subscribe();
 
-        stateMachinePersister.persist(stateMachine, oId);
+        stateMachinePersister.persist(stateMachine, MessageHeaderConstants.STATE_MACHINE_CACHE_KEY_PREFIX + oId);
+        return true;
     }
 
-    public void delivery(String oId) throws Exception {
+    public boolean delivery(String oId) throws Exception {
         stateMachine.startReactively().block();
-        stateMachinePersister.restore(stateMachine, oId);
+        stateMachinePersister.restore(stateMachine, MessageHeaderConstants.STATE_MACHINE_CACHE_KEY_PREFIX + oId);
+
+        String currentState = stateMachine.getState().getId().name();
+        if(!currentState.equals(OrderStatus.WAIT_DELIVER.name())){
+            return false;
+        }
 
         Order order = new Order(oId);
-        Mono<Message<OrderEvent>> message = Mono.just(MessageBuilder.withPayload(OrderEvent.DELIVERY).setHeader(MessageHeeaderConstants.ORDER_KEY_OF_HEADER, order).build());
+        Mono<Message<OrderEvent>> message = Mono.just(MessageBuilder.withPayload(OrderEvent.DELIVERY).setHeader(MessageHeaderConstants.ORDER_KEY_OF_HEADER, order).build());
         stateMachine.sendEvent(message).subscribe();
 
-        stateMachinePersister.persist(stateMachine, oId);
+        stateMachinePersister.persist(stateMachine, MessageHeaderConstants.STATE_MACHINE_CACHE_KEY_PREFIX + oId);
+        return true;
     }
 
-    public void received(String oId) throws Exception {
+    public boolean received(String oId) throws Exception {
         stateMachine.startReactively().block();
-        stateMachinePersister.restore(stateMachine, oId);
+        stateMachinePersister.restore(stateMachine, MessageHeaderConstants.STATE_MACHINE_CACHE_KEY_PREFIX + oId);
+
+        String currentState = stateMachine.getState().getId().name();
+        if(!currentState.equals(OrderStatus.WAIT_RECEIVE.name())){
+            return false;
+        }
 
         Order order = new Order(oId);
-        Mono<Message<OrderEvent>> message = Mono.just(MessageBuilder.withPayload(OrderEvent.RECEIVED).setHeader(MessageHeeaderConstants.ORDER_KEY_OF_HEADER, order).build());
+        Mono<Message<OrderEvent>> message = Mono.just(MessageBuilder.withPayload(OrderEvent.RECEIVED).setHeader(MessageHeaderConstants.ORDER_KEY_OF_HEADER, order).build());
         stateMachine.sendEvent(message).subscribe();
 
-        stateMachinePersister.persist(stateMachine, oId);
+        stateMachinePersister.persist(stateMachine, MessageHeaderConstants.STATE_MACHINE_CACHE_KEY_PREFIX + oId);
+        return true;
     }
 }

@@ -32,7 +32,6 @@ public class StateMachineConfig extends StateMachineConfigurerAdapter<OrderStatu
         transitions
                 .withExternal()
                 .source(OrderStatus.INIT).target(OrderStatus.WAIT_PAYMENT).event(OrderEvent.CREATE)
-                .timer(1000)
                 .and()
 
                 .withExternal()
